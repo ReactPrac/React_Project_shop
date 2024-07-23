@@ -36,9 +36,12 @@ function App() {
 
 			<Container>
 				<Row>
-					<List shoes={shoes[0]} i={1}></List>
+					{shoes.map(function (a, i) {
+						return <List shoes={shoes[i]} i={i + 1}></List>;
+					})}
+					{/* <List shoes={shoes[0]} i={1}></List>
 					<List shoes={shoes[1]} i={2}></List>
-					<List shoes={shoes[2]} i={3}></List>
+					<List shoes={shoes[2]} i={3}></List> */}
 					{/* <Col className='list'>
 						<img
 							src="https://codingapple1.github.io/shop/shoes1.jpg"
