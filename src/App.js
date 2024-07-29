@@ -5,6 +5,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Navbar, Container, Nav } from 'react-bootstrap'; // 여기서도 import 해줘야 사용가능
 import bg from './img/bg.png';
 import data from './data.js';
+import {
+	Routes,
+	Route,
+	Link,
+	useNavigate,
+	Outlet,
+	useParams,
+} from 'react-router-dom';
 
 function App() {
 	// 다른 파일에 있던 변수 가져오려면
@@ -23,69 +31,90 @@ function App() {
 				<Container>
 					<Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
 					<Nav className="me-auto">
-						<Nav.Link href="#home">Home</Nav.Link>
-						<Nav.Link href="#cart">Cart</Nav.Link>
+						<Nav.Link href="/">Home</Nav.Link>
+						<Nav.Link href="/cart">Cart</Nav.Link>
 					</Nav>
 				</Container>
 			</Navbar>
 
-			<div
-				className="main-bg"
-				style={{ backgroundImage: 'url(' + bg + ')' }}
-			></div>
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<div>
+							<div
+								className="main-bg"
+								style={{ backgroundImage: 'url(' + bg + ')' }}
+							></div>
 
-			<Container>
-				<Row>
-					{shoes.map(function (a, i) {
-						return <List shoes={shoes[i]} i={i + 1}></List>;
-					})}
-					{/* <List shoes={shoes[0]} i={1}></List>
-					<List shoes={shoes[1]} i={2}></List>
-					<List shoes={shoes[2]} i={3}></List> */}
-					{/* <Col className='list'>
-						<img
-							src="https://codingapple1.github.io/shop/shoes1.jpg"
-							width="80%"
-						/>
-						<h4>{shoes[0].title}</h4>
-						<p>{shoes[0].price}원</p>
-					</Col>
-					<Col className='list'>
-						<img
-							src="https://codingapple1.github.io/shop/shoes2.jpg"
-							width="80%"
-						/>
-						<h4>{shoes[1].title}</h4>
-						<p>{shoes[1].price}</p>
-					</Col>
-					<Col className='list'>
-						<img
-							src="https://codingapple1.github.io/shop/shoes3.jpg"
-							width="80%"
-						/>
-						<h4>{shoes[2].title}</h4>
-						<p>{shoes[2].price}</p>
-					</Col> */}
-				</Row>
-			</Container>
+							<Container>
+								<Row>
+									{shoes.map(function (a, i) {
+										return (
+											<List shoes={shoes[i]} i={i}></List>
+										);
+									})}
+								</Row>
+							</Container>
+						</div>
+					}
+				/>
+				<Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+			</Routes>
 		</div>
 	);
 }
 
 function List(props) {
+	let formattedPrice = props.shoes.price.toLocaleString();
+
 	return (
 		<Col className="list">
-			<img
-				src={
-					'https://codingapple1.github.io/shop/shoes' +
-					props.i +
-					'.jpg'
-				}
-				width="80%"
-			/>
-			<h4>{props.shoes.title}</h4>
-			<p>{props.shoes.price + '원'}</p>
+			<Link
+				to={`/detail/${props.shoes.id}`}
+				style={{ color: 'black', textDecorationLine: 'none' }}
+			>
+				<img
+					src={
+						'https://codingapple1.github.io/shop/shoes' +
+						(props.i + 1) +
+						'.jpg'
+					}
+					width="80%"
+				/>
+				<h4>{props.shoes.title}</h4>
+				<p>{formattedPrice + '원'}</p>
+			</Link>
 		</Col>
+	);
+}
+
+function Detail({ shoes }) {
+	let { id } = useParams();
+	let shoe = shoes.find((x) => x.id == id);
+	let formattedPrice = shoe.price.toLocaleString();
+
+	return (
+		<Container>
+			<Row>
+				<Col>
+					<img
+						src={
+							'https://codingapple1.github.io/shop/shoes' +
+							(shoe.id + 1) +
+							'.jpg'
+						}
+						width="100%"
+					/>
+				</Col>
+				<Col>
+					<h4 className="pt-5">{shoe.title}</h4>
+					<p>{shoe.content}</p>
+					<p>{formattedPrice}원</p>
+					<button>주문하기</button>
+				</Col>
+			</Row>
+		</Container>
 	);
 }
 
