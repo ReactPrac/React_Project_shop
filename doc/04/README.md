@@ -47,3 +47,47 @@ react-router-dom
 >> import 후 <BrowserRouter> 이걸로 <App/> 이걸 감싸면 끝
 
 <br>
+
+useNavigate()
+---
+- 페이지 이동 (Link 사용도 가능)
+  - 앞으로가기, 뒤로가기 개발 가능 => navigate() 괄호 안에 숫자 기재
+    - -1 : 뒤로 1번 가기
+    - 2 : 앞으로 2번 가기
+
+> ex
+```
+  function App(){
+    let navigate = useNavigate()
+    
+    return (
+      (생략)
+      <button onClick={()=>{ navigate('/detail') }}>이동버튼</button>
+    )
+  }
+```
+
+<br>
+
+Nested Routes
+---
+- 서브경로 설정
+
+> 이렇게 작성해 둔 코드를
+```
+  <Route path="/about/member" element={ <div>멤버들</div> } />
+  <Route path="/about/location" element={ <div>회사위치</div> } />
+```
+
+<br>
+
+> 이렇게 작성할 수 있음
+```
+  <Route path="/about" element={ <About/> } >  
+    <Route path="member" element={ <div>멤버들</div> } />
+    <Route path="location" element={ <div>회사위치</div> } />
+  </Route>
+```
+
+<br>
+
