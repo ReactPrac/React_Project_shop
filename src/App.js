@@ -71,6 +71,7 @@ function App() {
 						</div>
 					}
 				/>
+				{/* 페이지 여러개 만들고 싶으면 :URL파라미터 사용 */}
 				<Route path="/detail/:id" element={<Detail shoes={shoes} />} />
 				<Route path="/event" element={<Event />}>
 					<Route

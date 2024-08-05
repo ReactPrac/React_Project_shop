@@ -1,10 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Col, Container } from 'react-bootstrap'; 
+import { Row, Col, Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
-function Detail({ shoes }) {
+function Detail(props) {
+	// 유저가 URL 파라미터에 입력한거 가져오려면 useParams()
 	let { id } = useParams();
-	let shoe = shoes.find((x) => x.id == id);
+	let shoe = props.shoes.find((x) => x.id == id);
 	let formattedPrice = shoe.price.toLocaleString();
 
 	return (
