@@ -64,6 +64,7 @@ function App() {
 									{shoes.map(function (a, i) {
 										return (
 											<List shoes={shoes[i]} i={i}></List>
+											tnwjd
 										);
 									})}
 								</Row>
