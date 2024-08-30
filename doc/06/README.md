@@ -417,7 +417,7 @@ clean up function
   
     useEffect(()=>{
       if (isNaN(num) == true){
-        alert('그러지마세요')
+        alert('숫자를 입력하세요')
       }
     }, [num])
   
