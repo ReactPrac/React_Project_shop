@@ -10,12 +10,13 @@ import Detail from './routes/Detail.js';
 import List from './routes/List.js';
 import About from './routes/About.js';
 import Event from './routes/Event.js';
+import axios from 'axios'
 
 function App() {
 	// 다른 파일에 있던 변수 가져오려면
 	// 1. 변수를 export 하고
 	// 2. import
-	let [shoes] = useState(data);
+	let [shoes, setShoes] = useState(data);
 
 	// useNavigate() : 페이지 이동 도와줌
 	let navigate = useNavigate();
@@ -59,14 +60,25 @@ function App() {
 								style={{ backgroundImage: 'url(' + bg + ')' }}
 							></div>
 
-							<Container>
-								<Row>
+							<Container className="px-5">
+								<Row className="mx-auto">
 									{shoes.map(function (a, i) {
 										return (
 											<List shoes={shoes[i]} i={i}></List>
 										);
 									})}
 								</Row>
+								<button className="my-3" onClick={()=>{
+									axios.get('https://codingapple1.github.io/shop/data2.json')
+									.then((결과)=>{
+										console.log(결과.data)
+										let copy = [...shoes, ...결과.data]
+										setShoes(copy)
+									})
+									.catch(()=>{
+										console.log('실패')
+									})
+								}}>더보기</button>
 							</Container>
 						</div>
 					}

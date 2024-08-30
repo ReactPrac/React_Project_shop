@@ -5,7 +5,7 @@ function List(props) {
 	let formattedPrice = props.shoes.price.toLocaleString();
 
 	return (
-		<Col className="list">
+		<Col className="list" md={4}>
 			<Link
 				to={`/detail/${props.shoes.id}`}
 				style={{ color: 'black', textDecorationLine: 'none' }}
