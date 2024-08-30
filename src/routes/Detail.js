@@ -14,34 +14,37 @@ let YellowBtn = styled.button`
 let Box = styled.div`
 	background : black;
 	padding : 20px;
+	margin : 5px;
 `
 
 function Detail(props) {
-	
-	useEffect(()=>{
-		console.log('안녕')
-		for (var i = 0; i < 10000; i++){
-			console.log(1)
-		}
-		setTimeout(()=>{ setAlert(false) }, 2000)
-	})
 
-	let [count, setCount] = useState(0)
-	let [alert, setAlert] = useState(true)
+	let [showAlert, setShowAlert] = useState(true)
+	let [num, setNum] = useState('')
 
 	// 유저가 URL 파라미터에 입력한거 가져오려면 useParams()
 	let { id } = useParams();
 	let shoe = props.shoes.find((x) => x.id == id);
 	let formattedPrice = shoe.price.toLocaleString();
+		
+	useEffect(()=>{
+		setTimeout(()=>{ setShowAlert(false) }, 2000)
+	}, [])
+
+	useEffect(()=>{
+		if (isNaN(num)==true){
+			alert('숫자를 입력하세요.');
+		}
+	}, [num])
 
 	return (
 		<Container>
-			{count}
-			<button onClick={()=>{setCount(count+1)}}>버튼</button>
-			{alert == true ?
-			<div className="alert alert-warning">
-				2초 이내 구매시 할인
-			</div> : null}
+			{
+				showAlert == true ?
+					<div className="alert alert-warning">
+						2초 이내 구매시 할인
+					</div> : null
+			}
 			<Row>
 				<Col>
 					<img
@@ -57,6 +60,7 @@ function Detail(props) {
 					<h4 className="pt-5">{shoe.title}</h4>
 					<p>{shoe.content}</p>
 					<p>{formattedPrice}원</p>
+					<input onChange={ (e)=>{setNum(e.target.value)} }/> 
 					<Box>
 						<YellowBtn bg="lightgreen">장바구니</YellowBtn>
 						<YellowBtn bg="tomato">주문하기</YellowBtn>
