@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components'
+import { useEffect, useState } from "react"
 
 let YellowBtn = styled.button`
 	background : ${props => props.bg};
@@ -16,6 +17,18 @@ let Box = styled.div`
 `
 
 function Detail(props) {
+	
+	useEffect(()=>{
+		console.log('안녕')
+		for (var i = 0; i < 10000; i++){
+			console.log(1)
+		}
+		setTimeout(()=>{ setAlert(false) }, 2000)
+	})
+
+	let [count, setCount] = useState(0)
+	let [alert, setAlert] = useState(true)
+
 	// 유저가 URL 파라미터에 입력한거 가져오려면 useParams()
 	let { id } = useParams();
 	let shoe = props.shoes.find((x) => x.id == id);
@@ -23,7 +36,12 @@ function Detail(props) {
 
 	return (
 		<Container>
-
+			{count}
+			<button onClick={()=>{setCount(count+1)}}>버튼</button>
+			{alert == true ?
+			<div className="alert alert-warning">
+				2초 이내 구매시 할인
+			</div> : null}
 			<Row>
 				<Col>
 					<img
