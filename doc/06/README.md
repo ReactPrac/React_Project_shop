@@ -272,11 +272,13 @@ useEffect에 넣을 수 있는 실행조건
 
   - 변수나 state같은 것들을 넣을 수 있음
  
-  - [ ]에 있는 변수나 state 가 변할 때만 useEffect 안의 코드를 실행
+  - \[ ]에 있는 변수나 state 가 변할 때만 useEffect 안의 코드를 실행
 
 - 위의 코드는 count라는 변수가 변할 때만 useEffect 안의 코드가 실행
 
-- [ ] 안에 state 여러개 넣을 수 있음
+<br>
+
+#### 💡 \[] 안에 state 여러개 넣을 수 있음
 
 <br>
 
