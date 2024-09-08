@@ -69,7 +69,7 @@ AJAX로 GET/POST 요청
 <br>
 
 > axios 설치(터미널)
-```
+```javascript
   npm install axios
 ```
 
@@ -77,7 +77,7 @@ AJAX로 GET/POST 요청
 
 AJAX 요청하는 방법
 ---
-```
+```javascript
   import axios from 'axios'
   
   function App(){
@@ -106,3 +106,81 @@ AJAX 요청하는 방법
   - 실패했을 때 실행할 코드는 .catch() 안에 작성
 
 <br>
+
+POST 요청
+---
+```javascript
+  axios.post('URL', {name : 'kim'})
+```
+- 실행시 서버로 {name : 'kim'} 자료 전송
+
+  - 완료시 특정 코드 실행하고 싶으면 .then()
+
+<br>
+
+동시에 AJAX 요청 여러개
+---
+```javascript
+  Promise.all( [axios.get('URL1'), axios.get('URL2')] )
+```
+- URL1, URL2 로 GET 요청 동시 진행
+
+  - 완료시 특정 코드 실행하고 싶으면 .then()
+
+<br>
+
+### 💡 원래는 서버와 문자자료만 주고받을 수 있음
+- object/array 자료 주고받고 싶으면?
+
+  - object/array 자료에 따옴표 ⇒ JSON
+ 
+    - "{"name" : "kim"}"
+   
+    - JSON 은 문자 취급을 받기 때문에 서버와 자유롭게 주고받을 수 있음
+   
+    - 결과.data 출력시
+   
+      - 따옴표쳐진 JSON 이 나와야할 것 같은데 object/array 출력
+      
+        - axios 라이브러리는 JSON → object/array 변환 자동으로 진행되기 때문
+
+  - fetch() 를 이용해도 GET/POST 요청 가능
+  
+    - JSON → object/array 변환 작업 필요
+
+```javascript
+  fetch('URL').then(결과 => 결과.json()).then((결과) => { console.log(결과) })
+```
+
+<br>
+
+### 📌 ajax 로 가져온 데이터를 html 에 꽂을 때 오류 발생
+- 과정
+```html
+  1. ajax 요청으로 데이터 가져옴
+
+  2. state 에 저장하라고 코드 작성
+
+  3. state 를 html 에 넣어서 보여달라고 <div>{state.~}</div> 코드 작성
+```
+
+- 결과
+
+  - state 가 비어있다고 에러 발생
+ 
+- 원인
+
+  - ajax 요청보다 html 렌더링이 더 빠르기 때문
+ 
+    - state 안에 뭐가 들어있으면 보여달라고 if문 등 추가하면 안됨
+ 
+<br>
+
+
+
+
+
+
+
+
+
