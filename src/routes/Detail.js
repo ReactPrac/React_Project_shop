@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container, Nav } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components'
 import { useEffect, useState } from "react"
@@ -12,7 +12,7 @@ let YellowBtn = styled.button`
 `
 
 let Box = styled.div`
-	background : black;
+	background : white;
 	padding : 20px;
 	margin : 5px;
 `
@@ -21,6 +21,7 @@ function Detail(props) {
 
 	let [showAlert, setShowAlert] = useState(true)
 	let [num, setNum] = useState('')
+	let [tabNum, setTabNum] = useState(0)
 
 	// 유저가 URL 파라미터에 입력한거 가져오려면 useParams()
 	let { id } = useParams();
@@ -67,8 +68,38 @@ function Detail(props) {
 					</Box>
 				</Col>
 			</Row>
+
+			<Nav variant="tabs" defaultActiveKey="link0">	{/** defaultActiveKey : 페이지 로드시 눌린 효과 줄 버튼 결정 */}
+				<Nav.Item>
+					<Nav.Link onClick={()=>{setTabNum(0)}} eventKey="link0">기본정보</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link onClick={()=>{setTabNum(1)}} eventKey="link1">상세정보</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link onClick={()=>{setTabNum(2)}} eventKey="link2">리뷰</Nav.Link>
+				</Nav.Item>
+			</Nav>
+			<TabDetail tabNum={tabNum}/>
 		</Container>
 	);
+}
+
+function TabDetail({tabNum}){
+	// // 1. if문
+	// if(props.tabNum === 0){
+	// 	return <div>기본정보</div>
+	// } else if(props.tabNum === 1){
+	// 	return <div>상세정보</div>
+	// } else if(props.tabNum === 2){
+	// 	return <div>리뷰</div>
+	// }
+	
+	// // 2. 삼항연산자
+	// return [<div>기본정보</div>, <div>상세정보</div>, <div>리뷰</div>][props.tabNum]
+
+	// 3. props 쉽게 사용하기 : 자식컴포넌트에서 props 파라미터대신 {state1이름, state2이름, ...}
+	return [<div>기본정보</div>, <div>상세정보</div>, <div>리뷰</div>][tabNum]
 }
 
 export default Detail;
