@@ -7,7 +7,7 @@
 
 페이지 나누는 법(리액트 미사용)
 ---
-```
+```javascript
   1. html 파일 만들어서 상세페이지 내용 채움
   2. 누가 /detail로 접속하면 html 파일 보내줌
 ```
@@ -16,7 +16,7 @@
 
 페이지 나누는 법(리액트 사용)
 ---
-```
+```javascript
   1. 컴포넌트 만들어서 상세페이지내용 채움(리액트는 html 파일을 하나만 사용)
   2. 누가 /detail로 접속하면 그 컴포넌트 보여줌
 ```
@@ -29,7 +29,7 @@ react-router-dom
 - 설치 방법
 
 > 터미널
-```
+```javascript
   npm install react-router-dom@6
 ```
 
@@ -38,7 +38,7 @@ react-router-dom
 - 셋팅
 
 > index.js
-```
+```javascript
   import { BrowserRouter } from "react-router-dom";
 
   const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -62,7 +62,7 @@ useNavigate()
     - 2 : 앞으로 2번 가기
 
 > ex
-```
+```javascript
   function App(){
     let navigate = useNavigate()
     
@@ -86,7 +86,7 @@ Nested Routes
   - 여러 유사한 페이지 필요할 때
 
 > 이렇게 작성해 둔 코드를
-```
+```javascript
   <Route path="/about/member" element={ <div>멤버들</div> } />
   <Route path="/about/location" element={ <div>회사위치</div> } />
 ```
@@ -94,7 +94,7 @@ Nested Routes
 <br>
 
 > 이렇게 작성할 수 있음
-```
+```javascript
   <Route path="/about" element={ <About/> } >  
     <Route path="member" element={ <div>멤버들</div> } />
     <Route path="location" element={ <div>회사위치</div> } />
