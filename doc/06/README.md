@@ -1,6 +1,6 @@
 # Lifecycle & useEffect
 > 학습 목적
-```
+```javascript
   1. componentDidMount() 등 유용한 Lifecycle 함수들을 쓰기 위해
   
   2. 요즘은 위의 긴 함수 안쓰고 useEffect() 라는 깔끔한 함수 사용하기 때문
@@ -16,7 +16,7 @@
 
 
 ### 컴포넌트
-```
+```javascript
   1. 생성이 될 수도 있고 (전문용어로 mount)
   
   2. 재렌더링이 될 수도 있고 (전문용어로 update)
@@ -27,7 +27,7 @@
 <br>
 
 ### 컴포넌트의 인생을 배우는 이유
-```
+```javascript
   컴포넌트 인생 중간중간에 간섭(=코드실행)할 수 있기 때문
 
     컴포넌트가 장착이 될 때 특정 코드를 실행할 수도 있고, 
@@ -45,7 +45,7 @@
 
 ### 갈고리(hook)를 달아서 간섭
 > ex
-```
+```javascript
   "Detail 컴포넌트 등장 전에 이것좀 해줘"
   
   "Detail 컴포넌트 사라지기 전에 이것좀 해줘"
@@ -59,7 +59,7 @@
 
 옛날 React에서 Lifecycle hook 쓰는 법
 ---
-```
+```javascript
   class Detail2 extends React.Component {
     componentDidMount(){
       //Detail2 컴포넌트가 로드되고나서 실행할 코드
@@ -80,7 +80,7 @@
 
 요즘 React에서 Lifecycle hook 쓰는 법
 ---
-```
+```javascript
   import {useState, useEffect} from 'react';
   
   function Detail(){
@@ -102,7 +102,7 @@
 <br>
 
 > 재렌더링시
-```
+```javascript
   import {useState, useEffect} from 'react';
   
   function Detail(){
@@ -123,7 +123,7 @@
 <br>
 
 #### 💡 '안녕' 2번 출력되는 경우?
-```
+```javascript
   index.js에 <React.StrictMode>라는 태그가 있으면 2번 출력
   
   디버깅용으로 편하라고 2번 출력해주는데 싫으면 저 태그 제거
@@ -149,7 +149,7 @@ useEffect 밖에 적어도 똑같다?!
 <br>
 
 > ex) 굉장히 시간이 오래 걸리는 쓸데없는 코드가 필요하다고 가정
-```
+```javascript
   function Detail(){
   
     (반복문 10억번 돌리는 코드)
@@ -160,7 +160,7 @@ useEffect 밖에 적어도 똑같다?!
 
 <br>
 
-```
+```javascript
   function Detail(){
   
     useEffect(()=>{
@@ -194,7 +194,7 @@ setTimeout
 
 <br>
 
-```
+```javascript
   setTimeout( ()=>{ 1초 후 실행할 코드 }, 1000 );
 ```
 - 1000 이라고 숫자적은 곳에 ms 단위로 시간 기재
@@ -209,7 +209,7 @@ setTimeout
 ---
 ### Detail 페이지 후 2초 후에 박스 사라지게 하기
 > 동적UI
-```
+```javascript
   1. UI 상태를 저장할 state 만들기
 
   2. state에 따라 UI가 어떻게 보일지 작성
@@ -217,7 +217,7 @@ setTimeout
 
 <br>
 
-```
+```javascript
   function Detail(){
   
     let [alert, setAlert] = useState(true)
@@ -240,7 +240,7 @@ setTimeout
 <br>
 
 > useEffect & setTimeout 사용
-```
+```javascript
   function Detail(){
   
     let [alert, setAlert] = useState(true)
@@ -265,7 +265,7 @@ setTimeout
 
 useEffect에 넣을 수 있는 실행조건
 ---
-```
+```javascript
   useEffect( ()=>{ 실행할코드 }, [count] )
 ```
 - useEffect()의 둘째 파라미터로 [ ]
@@ -282,7 +282,7 @@ useEffect에 넣을 수 있는 실행조건
 
 <br>
 
-```
+```javascript
   useEffect( ()=>{ 실행할코드 }, [] )
 ```
 - 아무것도 안넣으면 컴포넌트 mount시 (로드시) 1회 실행
@@ -293,7 +293,7 @@ useEffect에 넣을 수 있는 실행조건
 
 clean up function
 ---
-```
+```javascript
   useEffect(()=>{ 
     그 다음 실행됨 
     return ()=>{
@@ -308,7 +308,7 @@ clean up function
 <br>
 
 #### 💡 왜 이런 기능이 있는걸까?
-```
+```javascript
   복잡하고 어려운 숙제할 때 책상을 싹 치우고 하면 잘되는 것 처럼 
   
   useEffect 안에 있는 코드를 실행할 때도
@@ -319,7 +319,7 @@ clean up function
 <br>
 
 > ex) setTimeout
-```
+```javascript
   setTimeout() 쓸 때마다 브라우저 안에 타이머가 하나 생김
   
     → 근데 useEffect 안에 썼기 때문에 컴포넌트가 mount 될 때 마다 실행 
@@ -336,7 +336,7 @@ clean up function
 
 <br>
 
-```
+```javascript
   useEffect(()=>{ 
     let a = setTimeout(()=>{ setAlert(false) }, 2000)
     return ()=>{
@@ -365,21 +365,21 @@ clean up function
 사용법 정리
 ---
 ### 1. 재렌더링마다 코드를 실행가능
-```
+```javascript
   useEffect(()=>{ 실행할코드 })
 ```
 
 <br>
 
 ### 2. 컴포넌트 mount시 (로드시) 1회만 실행가능
-```
+```javascript
   useEffect( ()=>{ 실행할코드 }, [] )
 ```
 
 <br>
 
 ### 3. useEffect 안의 코드 실행 전에 항상 실행
-```
+```javascript
   useEffect(()=>{ 
     return ()=>{
       실행할코드
@@ -390,7 +390,7 @@ clean up function
 <br>
 
 ### 4. 컴포넌트 unmount시 1회 실행
-```
+```javascript
   useEffect(()=>{
     return ()=>{
       실행할코드
@@ -401,7 +401,7 @@ clean up function
 <br>
 
 ### 5. state1 이 변경될 때만 실행
-```
+```javascript
   useEffect(()=>{
     실행할코드
   }, [state1])
@@ -413,7 +413,7 @@ clean up function
 ---
 ### input 태그에 유저가 숫자 말고 다른걸 입력하면 "숫자를 입력하세요" 안내메세지 출력
 > useEffect 사용해보기
-```
+```javascript
   function Detail(){
     let [num, setNum] = useState('')
   
