@@ -17,6 +17,8 @@ function App() {
 	// 1. 변수를 export 하고
 	// 2. import
 	let [shoes, setShoes] = useState(data);
+	let [loadCount, setLoadCount] = useState(1);	// 몇 번 데이터를 불러왔는지 카운트
+	let [isLoading, setIsLoading] = useState(false);	// 로딩 상태 관리
 
 	// useNavigate() : 페이지 이동 도와줌
 	let navigate = useNavigate();
@@ -25,6 +27,34 @@ function App() {
 	console.log(shoes); // [] : array
 	console.log(shoes[0]); // {} : object
 	console.log(shoes[0].title);
+
+	const loadMoreData = ()=>{
+		setIsLoading(true);		// 로딩 시작
+		let url = '';
+		
+		if(loadCount === 1){
+			url = 'https://codingapple1.github.io/shop/data2.json'
+		} else if(loadCount === 2){
+			url = 'https://codingapple1.github.io/shop/data3.json'
+		} else {
+			alert('더 이상 상품이 없습니다.')
+			setIsLoading(false)	// 로딩 상태 해제
+			return;
+		}
+
+		axios.get(url)
+			.then((result)=>{
+				let copy = [...shoes, ...result.data]
+				setShoes(copy)
+				setLoadCount(loadCount+1)
+			})
+			.catch(()=>{
+				console.log('실패')
+			})
+			.finally(()=>{
+				setIsLoading(false)	// 로딩 종ㄹ유
+			})
+	}
 
 	return (
 		<div className="App">
@@ -68,17 +98,8 @@ function App() {
 										);
 									})}
 								</Row>
-								<button className="my-3" onClick={()=>{
-									axios.get('https://codingapple1.github.io/shop/data2.json')
-									.then((결과)=>{
-										console.log(결과.data)
-										let copy = [...shoes, ...결과.data]
-										setShoes(copy)
-									})
-									.catch(()=>{
-										console.log('실패')
-									})
-								}}>더보기</button>
+								{isLoading && <p>로딩중입니다...</p>}	{/* 로딩 중일 때 메시지 표시 */}
+								<button className="my-3" onClick={loadMoreData} disabled={isLoading}>더보기</button>
 							</Container>
 						</div>
 					}
