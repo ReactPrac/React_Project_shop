@@ -3,7 +3,7 @@
 ---
 > html 안에서 src 폴더의 이미지 넣을 떄
 >> 이미지를 import 해오고 사용
-```
+```javascript
 import bg from './bg.png'
 
 function App(){
@@ -22,7 +22,7 @@ function App(){
 <br>
 
 > css 파일에서 src 안의 이미지 넣을 때
-```
+```javascript
   background-image: url('./이미지경로');
 ```
 
@@ -34,7 +34,7 @@ public 폴더
 - 리액트는 사이트발행 전에 html, jss, css 파일을 압축함(bundling)
   - but, public 폴더에 있던건 압축X
 > html에서 public 폴더 이미지 사용할 때
-```
+```javascript
   <img src="/이미지경로" />
 ```
 
@@ -42,14 +42,14 @@ public 폴더
 
 public 폴더 주의점
 > example.com 발행시
-```
+```javascript
   문제 없음!
 ```
 
 <br>
 
 > example.com/blah~/ 발행시
-```
+```javascript
   <img src="/blah~/이미지경로" />
 
   or
