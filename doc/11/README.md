@@ -77,8 +77,8 @@ store에 state 보관하고 쓰는 법
   import { configureStore, createSlice } from '@reduxjs/toolkit'
   
   let user = createSlice({
-    name : 'user',
-    initialState : 'kim'
+    name : 'user',    // state 이름 작명, state 하나를 slice 라고 부름
+    initialState : 'kim'  // state 값
   })
   
   export default configureStore({
