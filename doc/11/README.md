@@ -127,4 +127,78 @@ Redux store에 있던 state 가져다쓰는 법
 
 <br>
 
+store의 state 변경하는 법 
+---
+- state 수정해주는 함수부터 store.js에 만들어두고 컴포넌트에서 원할 때 실행하는 식으로 코드 작성
 
+<br>
+
+### 1. store.js 안에 state 수정해주는 함수 생성
+> store.js
+```javascript
+  let user = createSlice({
+    name : 'user',
+    initialState : 'kim',
+    reducers : {
+      changeName(state){
+        return 'john ' + state
+      }
+    }
+  }) 
+```
+- slice 안에 reducers : { } 열고 거기 안에 함수 작성
+
+  - 함수 작명 원하는대로
+ 
+  - 파라미터 하나 작명하면 그건 기존 state가 됨
+ 
+  - return 우측에 새로운 state 입력하면 그걸로 기존 state 변경
+
+- changeName() 쓸 때 마다 'kim' -> 'john kim' 으로 변경
+
+<br>
+
+### 2. 다른 곳에서 쓰기좋게 export 
+```javascript
+  export let { changeName } = user.actions 
+```
+- store.js 밑에 추가
+
+- slice이름.actions 라고 적으면 state 변경함수가 전부 그 자리에 출력됨
+
+  - 그걸 변수에 저장했다가 export 하라는 의미
+
+<br>
+
+### 3. 원할 때 import 해서 사용 (단, dispatch() 로 감싸서 사용)
+- 버튼 누르면 state를 'kim' -> 'john kim' 변경 하려면
+
+> Cart.js
+```javascript
+  import { useDispatch, useSelector } from "react-redux"
+  import { changeName } from "./../store.js"
+  
+  (생략) 
+  
+  <button onClick={()=>{
+    dispatch(changeName())
+  }}>버튼임</button> 
+```
+- store.js에서 원하는 state변경함수 가져오기
+
+- useDispatch 도 라이브러리에서 가져오기
+
+- dispatch( state변경함수() ) 이렇게 감싸서 실행하면 state 변경
+
+<br>
+
+|컴포넌트에서 state 직접 수정|state 수정함수를 store.js에 만들어두고 컴포넌트에서 불러오기|
+|:-:|:-:|
+|![image](https://github.com/user-attachments/assets/f794aaad-9cd5-43ee-a32a-2ef2ab0c2ed8)|![image](https://github.com/user-attachments/assets/8d8c2a84-f051-4c7c-836f-03dbd74b9e82)|
+|컴포넌트 100개에서 직접 'kim' 이라는 state 변경하다가<br>갑자기 'kim'이 123이 되어버리는 버그가 발생하면<br>범인 찾으려고 컴포넌트 100개를 다 확인해야함|'kim'이 123이 되어버리는 버그가 발생했을 때 범인찾기가 수월<br>범인은 무조건 store.js에 존재|
+
+<br>
+
+---
+
+<br>
