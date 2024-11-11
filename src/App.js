@@ -9,6 +9,7 @@ import Detail from './routes/Detail.js';
 import List from './routes/List.js';
 import About from './routes/About.js';
 import Event from './routes/Event.js';
+import Cart from './routes/Cart.js'
 import axios from 'axios'
 
 export let Context1 = createContext()
@@ -106,6 +107,11 @@ function App() {
 						</div>
 					}
 				/>
+
+				<Route path='/cart' element={
+					<Cart />
+				} />
+
 				{/* 페이지 여러개 만들고 싶으면 :URL파라미터 사용 */}
 				<Route path="/detail/:id" element={
 					<Context1.Provider value={{stock, shoes}}>
