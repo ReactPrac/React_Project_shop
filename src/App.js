@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Navbar, Container, Nav } from 'react-bootstrap'; // 여기서도 import 해줘야 사용가능
@@ -12,6 +11,8 @@ import About from './routes/About.js';
 import Event from './routes/Event.js';
 import axios from 'axios'
 
+export let Context1 = createContext()
+
 function App() {
 	// 다른 파일에 있던 변수 가져오려면
 	// 1. 변수를 export 하고
@@ -19,6 +20,7 @@ function App() {
 	let [shoes, setShoes] = useState(data);
 	let [loadCount, setLoadCount] = useState(1);	// 몇 번 데이터를 불러왔는지 카운트
 	let [isLoading, setIsLoading] = useState(false);	// 로딩 상태 관리
+	let [stock] = useState(10, 11, 12);		// Detail, TabDetail 에서 사용하려면 props 2번 or Context API 사용
 
 	// useNavigate() : 페이지 이동 도와줌
 	let navigate = useNavigate();
@@ -105,7 +107,11 @@ function App() {
 					}
 				/>
 				{/* 페이지 여러개 만들고 싶으면 :URL파라미터 사용 */}
-				<Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+				<Route path="/detail/:id" element={
+					<Context1.Provider value={{stock, shoes}}>
+						<Detail shoes={shoes} />
+					</Context1.Provider>
+				} />
 				<Route path="/event" element={<Event />}>
 					<Route
 						path="one"

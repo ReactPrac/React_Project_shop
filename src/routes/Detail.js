@@ -2,7 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Container, Nav } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components'
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+
+import { Context1 } from './../App.js'
 
 let YellowBtn = styled.button`
 	background : ${props => props.bg};
@@ -18,6 +20,8 @@ let Box = styled.div`
 `
 
 function Detail(props) {
+
+	let {stock, shoes} = useContext(Context1)	// state 보관함(Context) 해체
 
 	let [showAlert, setShowAlert] = useState(true)
 	let [num, setNum] = useState('')
@@ -71,7 +75,8 @@ function Detail(props) {
 					<h4 className="pt-5">{shoe.title}</h4>
 					<p>{shoe.content}</p>
 					<p>{formattedPrice}원</p>
-					<input onChange={ (e)=>{setNum(e.target.value)} }/> 
+					<input placeholder='구매수량' onChange={ (e)=>{setNum(e.target.value)} }/> 
+					<p className='mb-0 pt-3'>재고 : {stock}</p>
 					<Box>
 						<YellowBtn bg="lightgreen">장바구니</YellowBtn>
 						<YellowBtn bg="tomato">주문하기</YellowBtn>
@@ -90,14 +95,15 @@ function Detail(props) {
 					<Nav.Link onClick={()=>{setTabNum(2)}} eventKey="link2">리뷰</Nav.Link>
 				</Nav.Item>
 			</Nav>
-			<TabDetail tabNum={tabNum}/>
+			<TabDetail tabNum={tabNum} shoes={props.shoes}/>
 		</Container>
 	);
 }
 
-function TabDetail({tabNum}){
+function TabDetail({tabNum, shoes}){
 
 	let [fade, setFade] = useState('')
+	let {stock} = useContext(Context1)
 
 	useEffect(()=>{
 		setTimeout(()=>{setFade('end')}, 100)		// 0.1 초 후 실행
@@ -122,7 +128,7 @@ function TabDetail({tabNum}){
 
 	// 3. props 쉽게 사용하기 : 자식컴포넌트에서 props 파라미터대신 {state1이름, state2이름, ...}
 	return (<div className={'start ' + fade}>		
-		{[<div>기본정보</div>, <div>상세정보</div>, <div>리뷰</div>][tabNum]}
+		{[<div>{shoes[0].title} 재고 : {stock} 기본정보</div>, <div>상세정보</div>, <div>리뷰</div>][tabNum]}
 	</div>)		// {'start ' + fade} = {`start ${fade}`}
 }
 
