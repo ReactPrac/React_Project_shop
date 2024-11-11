@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Navbar, Container, Nav } from 'react-bootstrap'; // 여기서도 import 해줘야 사용가능
@@ -63,7 +63,7 @@ function App() {
 		<div className="App">
 			<Navbar bg="dark" data-bs-theme="dark">
 				<Container>
-					<Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
+					<Navbar.Brand href="/">ShoeShop</Navbar.Brand>
 					<Nav className="me-auto">
 						<Nav.Link
 							onClick={() => {
@@ -85,7 +85,7 @@ function App() {
 
 			<Routes>
 				<Route
-					path="/"
+					index
 					element={
 						<div>
 							<div
@@ -110,7 +110,7 @@ function App() {
 
 				<Route path='/cart' element={
 					<Cart />
-				} />
+				}/>
 
 				{/* 페이지 여러개 만들고 싶으면 :URL파라미터 사용 */}
 				<Route path="/detail/:id" element={

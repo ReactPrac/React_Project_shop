@@ -10,12 +10,12 @@ import store from './store.js'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	// <React.StrictMode>
-	// store.js 에 있던 state 모두 사용가능
-	<Provider store={store}>
-		<BrowserRouter>
-			<App />	
-		</BrowserRouter>
-	</Provider>
+		// {/* // store.js 에 있던 state 모두 사용가능 */}
+		<Provider store={store}>
+			<BrowserRouter basename={process.env.PUBLIC_URL}>
+				<App />	
+			</BrowserRouter>
+		</Provider>
 	// </React.StrictMode>
 );
 
