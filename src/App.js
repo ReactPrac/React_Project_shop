@@ -52,7 +52,7 @@ function App() {
 				console.log('실패')
 			})
 			.finally(()=>{
-				setIsLoading(false)	// 로딩 종ㄹ유
+				setIsLoading(false)	// 로딩 중
 			})
 	}
 

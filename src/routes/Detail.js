@@ -27,6 +27,16 @@ function Detail(props) {
 	let { id } = useParams();
 	let shoe = props.shoes.find((x) => x.id == id);
 	let formattedPrice = shoe.price.toLocaleString();
+
+	let [fade2, setFade2] = useState('');
+
+	useEffect(()=>{
+		setTimeout(()=>{setFade2('end')}, 100)
+
+		return () => {
+			setFade2('')
+		}
+	}, [])
 		
 	useEffect(()=>{
 		setTimeout(()=>{ setShowAlert(false) }, 2000)
@@ -39,7 +49,7 @@ function Detail(props) {
 	}, [num])
 
 	return (
-		<Container>
+		<Container className={'start ' + fade2}>
 			{
 				showAlert == true ?
 					<div className="alert alert-warning">
@@ -86,6 +96,18 @@ function Detail(props) {
 }
 
 function TabDetail({tabNum}){
+
+	let [fade, setFade] = useState('')
+
+	useEffect(()=>{
+		setTimeout(()=>{setFade('end')}, 100)		// 0.1 초 후 실행
+		// fade 라는  state 를 end 로 변경
+		return ()=>{
+			// useEffect 실행 전에 실행됨
+			setFade('')
+		}
+	}, [tabNum])	// TabNum 변경될 때마다 안의 코드 실행
+
 	// // 1. if문
 	// if(props.tabNum === 0){
 	// 	return <div>기본정보</div>
@@ -95,11 +117,13 @@ function TabDetail({tabNum}){
 	// 	return <div>리뷰</div>
 	// }
 	
-	// // 2. 삼항연산자
+	// // 2. array
 	// return [<div>기본정보</div>, <div>상세정보</div>, <div>리뷰</div>][props.tabNum]
 
 	// 3. props 쉽게 사용하기 : 자식컴포넌트에서 props 파라미터대신 {state1이름, state2이름, ...}
-	return [<div>기본정보</div>, <div>상세정보</div>, <div>리뷰</div>][tabNum]
+	return (<div className={'start ' + fade}>		
+		{[<div>기본정보</div>, <div>상세정보</div>, <div>리뷰</div>][tabNum]}
+	</div>)		// {'start ' + fade} = {`start ${fade}`}
 }
 
 export default Detail;
