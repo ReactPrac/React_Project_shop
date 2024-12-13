@@ -2,18 +2,23 @@ import { configureStore, createSlice } from '@reduxjs/toolkit'
 
 let user = createSlice({   // useState 역할
     name : 'user',
-    initialState : 'kim',
+    initialState : {name: 'kim', age: 20},
     // 'john kim' 으로 수정해주는 함수
     reducers : {
         changeName(state){      // (state) : 기존 state 뜻함
-            return 'john ' + state
+            // return 'john ' + state
+            // return {name: 'park', age: 20}
+            state.name = 'park'
         },
         // 함수2(){},   
+        changeAge(state){
+            state.age += 1
+        }
     }
 })
 
 // user.actions : state 변경함수들 남음
-export let {changeName} = user.actions  // 오른쪽 자료를 변수로 빼는 문법
+export let {changeName, changeAge} = user.actions  // 오른쪽 자료를 변수로 빼는 문법
 
 let cart = createSlice({
     name : 'cart',
