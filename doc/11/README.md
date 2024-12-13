@@ -202,3 +202,82 @@ store의 state 변경하는 법
 ---
 
 <br>
+
+state가 object/array일 경우 변경하는 법
+---
+### 01. redux state가 array/object인 경우 변경
+- state 가 object 형인 경우 'kim' -> 'park' 변경
+> 방법1
+```javascript
+  let user = createSlice({
+    name : 'user',
+    initialState : {name : 'kim', age : 20},
+    reducers : {
+      changeName(state){
+        return {name : 'park', age : 20}
+      }
+    }
+  }) 
+```
+
+<br>
+
+> 방법2 (state 직접 수정)
+```javascript
+  let user = createSlice({
+    name : 'user',
+    initialState : {name : 'kim', age : 20},
+    reducers : {
+      changeName(state){
+        state.name = 'park'
+      }
+    }
+  }) 
+```
+- state를 직접 수정하는 문법을 사용해도 잘 변경되는 이유
+
+  - Immer.js 라이브러리가 state 사본을 하나 더 생성해주기 때문
+
+  - Redux 설치하면 자동 생성
+
+- 수정이 편리하므로 state 만들 때 문자나 숫자 하나만 필요해도 redux 에선 일부러 object 아니면 array 에 담는 경우도 있음
+
+<br>
+
+### 02. state 변경함수가 여러개 필요하면
+- state 변경함수에 파라미터문법 사용
+```javascript
+  let user = createSlice({
+    name : 'user',
+    initialState : {name : 'kim', age : 20},
+    reducers : {
+      countPlus(state, action){
+        state.age += action.payload
+      }
+    }
+  }) 
+```
+- state 변경함수의 둘째 파라미터 작명(action 으로 자주 함)하면 파라미터 입력을 해서 함수 사용 가능
+
+- 파라미터자리에 넣은 자료들은 action.payload 하면 나옴
+
+  - action.type 하면 state 변경함수 이름이 나옴
+  
+  - action.payload 하면 파라미터가 나옴
+
+<br>
+
+### 03. 배열 메서드
+|메소드|설명|반환 값|원본 배열 변경 여부|
+|-|-|-|-|
+|push()\|열의 끝에 하나 이상의 요소를 추가|추가된 배열의 새로운 길이|변경|
+|find()|배열에서 주어진 조건을 만족하는 첫 번째 요소를 반환|조건을 만족하는 첫 번째 요소 (없으면 undefined)|변경 안 함|
+|findIndex()|배열에서 주어진 조건을 만족하는 첫 번째 요소의 인덱스를 반환|조건을 만족하는 요소의 인덱스 (없으면 -1)|변경 안 함|
+|splice()|배열에서 요소를 추가하거나 삭제|삭제된 배열의 항목|변경|
+|filter()|배열에서 조건을 만족하는 모든 요소를 새로운 배열로 반환|조건을 만족하는 새로운 배열 (빈 배열도 가능)|변경 안 함|
+|map()|배열의 각 요소에 대해 주어진 함수를 호출한 결과로 새로운 배열을 반환|각 요소에 대해 호출된 함수의 결과 배열|변경 안 함|
+|sort()|배열의 요소들을 정렬|정렬된 배열|변경|
+|reverse()|배열의 순서를 반대로 바꿈|반대로 뒤집힌 배열|변경|
+
+<br>
+
