@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import { useEffect, useState, useContext } from "react"
 
 import { Context1 } from './../App.js'
+import { useDispatch } from 'react-redux';
+import { addItem } from './store.js';
 
 let YellowBtn = styled.button`
 	background : ${props => props.bg};
@@ -33,6 +35,8 @@ function Detail(props) {
 	let formattedPrice = shoe.price.toLocaleString();
 
 	let [fade2, setFade2] = useState('');
+
+	let dispatch = useDispatch();
 
 	useEffect(()=>{
 		setTimeout(()=>{setFade2('end')}, 100)
@@ -78,7 +82,9 @@ function Detail(props) {
 					<input placeholder='구매수량' onChange={ (e)=>{setNum(e.target.value)} }/> 
 					<p className='mb-0 pt-3'>재고 : {stock}</p>
 					<Box>
-						<YellowBtn bg="lightgreen">장바구니</YellowBtn>
+						<YellowBtn bg="lightgreen" onClick={()=>{
+							dispatch(addItem({id: shoe.id, name: shoe.title, count: 1}))
+						}}>장바구니</YellowBtn>
 						<YellowBtn bg="tomato">주문하기</YellowBtn>
 					</Box>
 				</Col>
