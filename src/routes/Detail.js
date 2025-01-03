@@ -56,6 +56,14 @@ function Detail(props) {
 		}
 	}, [num])
 
+	useEffect(()=>{
+		console.log(shoe.id);
+		let watchItem = localStorage.getItem('watched')
+		watchItem = JSON.parse(watchItem)
+		watchItem.push(shoe.id)
+		localStorage.setItem('watched', JSON.stringify(watchItem))
+	}, [])
+
 	return (
 		<Container className={'start ' + fade2}>
 			{

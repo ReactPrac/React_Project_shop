@@ -15,6 +15,23 @@ import axios from 'axios'
 export let Context1 = createContext()
 
 function App() {
+
+	// // localStorage===============================
+	// let obj = {name : 'kim'}
+	// // localStorage.setItem('data', obj)	// JSON 변환 전 value : [object Object] 로 자료 깨짐
+	// // JSON.stringify() : array/object -> JSON 변환
+	// localStorage.setItem('data', JSON.stringify(obj))	// JSON 변환 후 value : {"name":"kim"}
+	// let result = localStorage.getItem('data')
+	// // console.log(result.name);	// object 에서 데이터 뽑는 문법으로 JSON 에서 사용불가
+	// // JSON.parse() : JSON -> array/object 변환
+	// console.log(JSON.parse(result).name)
+	// // localStorage===============================
+
+
+	useEffect(()=>{
+		localStorage.setItem('watched', JSON.stringify([]))
+	}, [])
+
 	// 다른 파일에 있던 변수 가져오려면
 	// 1. 변수를 export 하고
 	// 2. import
