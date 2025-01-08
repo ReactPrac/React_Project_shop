@@ -80,7 +80,7 @@ function App() {
 		<div className="App">
 			<Navbar bg="dark" data-bs-theme="dark">
 				<Container>
-					<Navbar.Brand onClick={()=>{navigate('/')}} style={{cursor: 'pointer'}}>ShoeShop</Navbar.Brand>
+					<Navbar.Brand style={{cursor: 'default'}}>ShoeShop</Navbar.Brand>
 					<Nav className="me-auto">
 						<Nav.Link
 							onClick={() => {
